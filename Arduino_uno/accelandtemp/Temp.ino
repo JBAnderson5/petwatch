@@ -17,6 +17,15 @@ float Hums[5];
 float HIs[5];
 int tempIndex;
 
+void printTemps(){
+  for(int i =0;i<12;i++){
+    Serial.println(avgTemp[i]);
+    Serial.println(avgHum[i]);
+    Serial.println(avgHI[i]);
+    Serial.println(timeStamp[i]);
+    Serial.println();
+  }
+}
 
 void setupTemp(){
 
@@ -43,6 +52,8 @@ void calculateTemps(){
   avgHum[storedIndex] = hum;
   avgHI[storedIndex] = hi;
   timeStamp[storedIndex] = Time;
+  //if(storedIndex==11)
+    printTemps();
   storedIndex=(storedIndex+1)%12;
 }
 
@@ -51,21 +62,21 @@ void measureTemp(){
   float hum = dht.readHumidity();
   float temp = dht.readTemperature(true);
 
-  if(isnan(h)||isnan(f)){
+  if(isnan(hum)||isnan(temp)){
     Serial.println("Falied to read temp sensor");
   }
   else{
-    float hi = dht.computeHeatIndex(f,h);
+    float hi = dht.computeHeatIndex(temp,hum);
     Temps[tempIndex]=temp;
     Hums[tempIndex]=hum;
     HIs[tempIndex]=hi;
     
   }
-  if(index==4){
+  if(tempIndex==4){
     calculateTemps();
   }
   
-  index = (index+1)%5;
+  tempIndex = (tempIndex+1)%5;
 }
 
 

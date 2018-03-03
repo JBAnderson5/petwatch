@@ -1,12 +1,18 @@
 // accelerometer pins
-#define LIS3DH_CLK 13
-#define LIS3DH_MISO 12
-#define LIS3DH_MOSI 11
-#define LIS3DH_CS 10
+#define LIS3DH_CLK 13   //blue SCL
+#define LIS3DH_MISO 12  //yellow SDO
+#define LIS3DH_MOSI 11  //green SDA
+#define LIS3DH_CS 10    //blue CS
 
 // global accelerometer variables
 Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);
-float totalMovement=0;
+
+//stores the total movement of 5 minute intervals
+float aggMovement[12];
+unsigned long accelTime[12];
+int accelIndex;
+float movement;
+unsigned long pastAccel;
 
 void setupAccel(void){
    if (! lis.begin(0x18)) {   // change this to 0x19 for alternative i2c address
@@ -16,8 +22,22 @@ void setupAccel(void){
   Serial.println("accelerometer found!");
 
    lis.setRange(LIS3DH_RANGE_4_G);   // 2, 4, 8 or 16 G!
-  
+  movement=0;
+  pastAccel=0;
 }
+
+void totalAccel(){
+  aggMovement[accelIndex]=movement;
+  movement=0;
+  
+  accelTime[accelIndex]=Time;
+  pastAccel=Time;
+  Serial.println(aggMovement[accelIndex]);
+  Serial.println(accelTime[accelIndex]);
+  Serial.println();
+  accelIndex++;
+}
+
 
 void measureAccel(){
   lis.read();
@@ -25,8 +45,9 @@ void measureAccel(){
   lis.getEvent(&event);
 
   //figure out physics
-  float movement= abs(event.acceleration.x) + abs(event.acceleration.y) + abs(event.acceleration.z) - 9.8;
-  Serial.println(movement);
-  totalMovement+=movement;
+  movement+= abs(event.acceleration.x) + abs(event.acceleration.y) + abs(event.acceleration.z) - 9.8;
+  if(Time-pastAccel>1000*60*60)
+    totalAccel();
+
   
 }

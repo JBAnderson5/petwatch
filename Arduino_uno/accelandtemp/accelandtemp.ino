@@ -18,7 +18,7 @@ void setup(void) {
 #ifndef ESP8266
   while (!Serial);     // will pause Zero, Leonardo, etc until serial console opens
 #endif
-  time=millis();
+  Time=millis();
   Serial.begin(9600);
   setupAccel();
   setupTemp();
@@ -31,11 +31,11 @@ void loop() {
   Time=millis();
 
   //check temperature every minute
-  if(Time-prevTemp>1000)
+  if(Time-prevTemp>1000*60)
     measureTemp();
 
   measureAccel();
-  Serial.println();
+  //Serial.println();
  
   delay(200); 
 }
