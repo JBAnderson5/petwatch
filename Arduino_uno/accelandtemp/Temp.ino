@@ -1,5 +1,5 @@
 //temperature pin
-#define DHTPIN 2
+#define DHTPIN 2 //green
 #define DHTTYPE DHT22
 
 //global temperature variables

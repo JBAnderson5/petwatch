@@ -46,7 +46,7 @@ void measureAccel(){
 
   //figure out physics
   movement+= abs(event.acceleration.x) + abs(event.acceleration.y) + abs(event.acceleration.z) - 9.8;
-  if(Time-pastAccel>1000*60*60)
+  if(Time-pastAccel>1000*60)
     totalAccel();
 
   
