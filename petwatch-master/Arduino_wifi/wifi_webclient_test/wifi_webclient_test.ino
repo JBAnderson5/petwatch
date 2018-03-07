@@ -19,6 +19,7 @@ void setup() {
  
   // We start by connecting to a WiFi network
  /*
+
   Serial.println();
   Serial.println();
   Serial.print("Connecting to ");
@@ -39,12 +40,15 @@ void setup() {
   Serial.println(WiFi.subnetMask());
   Serial.print("Gateway: ");
   Serial.println(WiFi.gatewayIP());
+
   */
+
 }
  
 int value = 0;
  
 void loop() {
+
 
   digitalWrite(0,HIGH);
   delay(500);
@@ -84,5 +88,7 @@ void loop() {
   
   Serial.println();
   Serial.println("closing connection");
+
   */
+
 } 

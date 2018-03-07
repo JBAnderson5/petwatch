@@ -1,3 +1,4 @@
+
 //green pin 5
 //blue pin 4
 
@@ -10,25 +11,30 @@ void sendAccel(){
 
   Wire.beginTransmission(8);
   Wire.write("accel");
+
   Wire.write(accelIndex);
 /*
+
   for(int i=0;i<accelIndex;i++){
     Wire.write(aggMovement, sizeof(aggMovement));
     Wire.write(&accelTime[i]);
     aggMovement[i]=0;
     accelTime[i]=0;
   }
+
   */
   byte result= Wire.endTransmission();
   accelIndex=0;
   Serial.println("sent accel data");
   Serial.println(result);
+
 }
 
 void sendTemp(){
 
   Wire.beginTransmission(8);
   Wire.write("temp");
+
   Wire.write(storedIndex);
   /*
   for(int i=0;i<storedIndex;i++){
@@ -41,6 +47,7 @@ void sendTemp(){
     avgHI[i]=0;
     timeStamp[i]=0;
   }
+
   */
   Wire.endTransmission();
   storedIndex=0;
