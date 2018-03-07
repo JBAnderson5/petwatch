@@ -12,9 +12,14 @@ const char* host = "wifitest.adafruit.com";
 void setup() {
   Serial.begin(9600);
   delay(100);
+
+  setupReciever();
+  pinMode(0,OUTPUT);
+  
  
   // We start by connecting to a WiFi network
- 
+ /*
+
   Serial.println();
   Serial.println();
   Serial.print("Connecting to ");
@@ -35,11 +40,21 @@ void setup() {
   Serial.println(WiFi.subnetMask());
   Serial.print("Gateway: ");
   Serial.println(WiFi.gatewayIP());
+
+  */
+
 }
  
 int value = 0;
  
 void loop() {
+
+
+  digitalWrite(0,HIGH);
+  delay(500);
+  digitalWrite(0,LOW);
+  delay(500);
+  /*
   delay(5000);
   ++value;
  
@@ -73,4 +88,7 @@ void loop() {
   
   Serial.println();
   Serial.println("closing connection");
+
+  */
+
 } 
