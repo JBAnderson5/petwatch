@@ -25,9 +25,6 @@ void setup(void) {
   setupAccel();
   setupTemp();
   setupWifi();
-
-  sendAccel();
-  sendTemp();
 }
 
 
