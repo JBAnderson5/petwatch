@@ -24,10 +24,10 @@ void setup(void) {
   Serial.begin(9600);
   setupAccel();
   setupTemp();
-  setupWifi();
+ // setupWifi();
 
-  sendAccel();
-  sendTemp();
+//  sendAccel();
+//  sendTemp();
 }
 
 
@@ -42,10 +42,7 @@ void loop() {
 
   measureAccel();
   //Serial.println();
- if(Time-prevTrans>1000*60UL){
-    sendAccel();
-    sendTemp();
- }
+
  
   delay(200); 
 }
