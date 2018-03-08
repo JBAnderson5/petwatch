@@ -34,7 +34,7 @@ void setupWifi(){
     return;
   }
 
-  url="/dogCollar/index.html";
+  url="/dogCollar/sendData.php";
   client.print(String("POST ") + url + " HTTP/1.1\r\n" + "HOST: " + host + "\r\n" + "prevTrans="+prevTrans  + "\r\n Connection: close\r\n\r\n");
 
   delay(500);
