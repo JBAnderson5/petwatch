@@ -1,8 +1,8 @@
 // accelerometer pins
 #define LIS3DH_CLK 13   //blue SCL
 #define LIS3DH_MISO 12  //yellow SDO
-#define LIS3DH_MOSI 11  //green SDA
-#define LIS3DH_CS 10    //blue CS
+#define LIS3DH_MOSI 14  //green SDA
+#define LIS3DH_CS 16    //blue CS
 
 // global accelerometer variables
 Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);

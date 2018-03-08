@@ -26,8 +26,8 @@ void setup(void) {
   setupTemp();
   setupWifi();
 
-  sendAccel();
-  sendTemp();
+//  sendAccel();
+//  sendTemp();
 }
 
 
@@ -42,15 +42,9 @@ void loop() {
 
   measureAccel();
   //Serial.println();
- if(Time-prevTrans>1000*60UL){
-    sendAccel();
-    sendTemp();
- }
+
  
   delay(200); 
 }
-
-
-
 
 

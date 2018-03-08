@@ -1,5 +1,5 @@
 //temperature pin
-#define DHTPIN 4 //green
+#define DHTPIN 2 //green
 #define DHTTYPE DHT22
 
 //global temperature variables
@@ -32,7 +32,6 @@ void setupTemp(){
   dht.begin();
   tempIndex=0;
   storedIndex=0;
-  prevTemp=0;
 }
 
 void calculateTemps(){
@@ -60,8 +59,6 @@ void calculateTemps(){
 
 //runs every minute
 void measureTemp(){
-  Serial.print("t");
-  prevTemp=Time;
   float hum = dht.readHumidity();
   float temp = dht.readTemperature(true);
 
