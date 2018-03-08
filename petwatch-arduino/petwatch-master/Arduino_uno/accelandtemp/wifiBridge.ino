@@ -47,9 +47,9 @@ void setupWifi(){
 
 
 void sendAccel(){
-  String message="POST "+url+ " HTTP/1.1\r\n"+ "HOST: "+host + "\r\n"+ "prevTrans="+ prevTrans+ "&dataType=accel";
+  String message=String("POST ")+url+ " HTTP/1.1\r\n"+ "HOST: "+host + "\r\n"+ "prevTrans="+ prevTrans+ "&dataType=accel";
   for(int i=0; i < accelIndex;i++){
-    message+="&accel"+i+"="+aggMovement[i]+"&time"+i+"="+accelTime[i];
+    message+=String("&accel")+i+"="+aggMovement[i]+"&time"+i+"="+accelTime[i];
   }
   message+="\r\n Connection: close\r\n\r\n";
 }
@@ -57,7 +57,7 @@ void sendAccel(){
 void sendTemp(){
   String message="POST "+url+ " HTTP/1.1\r\n"+ "HOST: "+host + "\r\n"+ "prevTrans="+ prevTrans+ "&dataType=temp";
   for(int i=0; i < storedIndex;i++){
-    message+="&temp"+i+"="+avgTemp[i]+"&hum"+i+"="+avgHum[i]+"&HI"+i+"="+avgHI[i]+"&time"+i+"="+timeStamp[i];
+    message+=String("&temp")+i+"="+avgTemp[i]+"&hum"+i+"="+avgHum[i]+"&HI"+i+"="+avgHI[i]+"&time"+i+"="+timeStamp[i];
   }
   message+="\r\n Connection: close\r\n\r\n";
 }
