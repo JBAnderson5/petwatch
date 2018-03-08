@@ -24,7 +24,7 @@ void setup(void) {
   Serial.begin(9600);
   setupAccel();
   setupTemp();
- // setupWifi();
+  setupWifi();
 
 //  sendAccel();
 //  sendTemp();
@@ -46,8 +46,5 @@ void loop() {
  
   delay(200); 
 }
-
-
-
 
 
