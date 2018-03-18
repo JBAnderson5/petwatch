@@ -8,27 +8,56 @@
 	else{
 		$time=$_POST['prevTrans'];
 		var_dump($_POST);
-		echo "<p> Time: " . $time . "</p>";
+		//echo "<p> Time: " . $time . "</p>";
 		//file_put_contents('display.html',$Write);
 
-		$dataType=$_POST['dataType'];
+		
 
-	  if($dataType=="accel"){
-	    $index=$_POST['index'];
+	  if($_POST['accelData']==1){
+	    $index=$_POST['accelIndex'];
+	    if($index==0)
+	      break;
+
+
+	    $accel=$_POST['accel'];
+	    $time=$_POST['atime'];
+
+	   
+
 	    for($i = 0;$i<$index;$i++){
-	      $temp='accel'+$i;
-	      $accel=$_POST[$temp];
-	      $temp='time'+$i;
-	      $log_time=$POST[$temp];
-	      $stmt="INSERT INTO Ellie Values (".$log_time. ", " .$accel.");";
+	 
+	      $stmt="INSERT INTO accelData Values (".$time[$i]. ", " .$accel[$i].");";
 	      echo $stmt;
 	      $result=$conn->query($stmt);
+	      if(!$result){
+		logToFile('query failed: '.$stmt);
+	      }
 	    }
 
-	  }else if($dataType=="temp"){
+	  }
 
-	  }else{
-	  //shouldn't run unless inital message
+	  if($_POST['tempData']==1){
+	    $index=$_POST['tempIndex'];
+	    if($index==0)
+	      break;
+
+
+	    $temp=$_POST['temp'];
+	    $hum=$_POST['hum'];
+	    $HI=$_POST['HI'];
+	    $time=$_POST['ttime'];
+
+	   
+
+	    for($i = 0;$i<$index;$i++){
+	 
+	      $stmt="INSERT INTO tempData Values (".$time[$i]. ", " .$temp[$i].", ".$hum[$i].", ".$HI[$i].");";
+	      echo $stmt;
+	      $result=$conn->query($stmt);
+	      if(!$result){
+		logToFile('query failed: '.$stmt);
+	      }
+	    }
 	  }
 
       }
