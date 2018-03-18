@@ -60,11 +60,11 @@ void sendInfo(){
   }
   if(!client.connected()){
     Serial.println("client disconnected");
-    if(!client.connect(host, httpPort)){
+    while(!client.connect(host, httpPort)){
       Serial.println("connection failed");
       return;
     }
-    else{
+    {
       Serial.println("client reconnected");
     }
   }
@@ -115,7 +115,7 @@ String accelData(){
   
   String data=String("&accelIndex=")+accelIndex;
   for(int i=0; i < accelIndex;i++){
-    data+=String("&accel[")+i+"]="+aggMovement[i]+"&time["+i+"]="+accelTime[i];
+    data+=String("&accel[")+i+"]="+steps[i]+"&atime["+i+"]="+accelTime[i];
   }
   return data;
 
@@ -127,7 +127,7 @@ String tempData(){
   
   String data= String("&tempIndex=")+storedIndex;
   for(int i=0; i < storedIndex;i++){
-    data+=String("&temp[")+i+"]="+avgTemp[i]+"&hum["+i+"]="+avgHum[i]+"&HI["+i+"]="+avgHI[i]+"&time["+i+"]="+timeStamp[i];
+    data+=String("&temp[")+i+"]="+avgTemp[i]+"&hum["+i+"]="+avgHum[i]+"&HI["+i+"]="+avgHI[i]+"&ttime["+i+"]="+timeStamp[i];
   }
   return data;
   

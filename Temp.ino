@@ -31,7 +31,8 @@ void printTemps(){
 }
 
 void setupTemp(){
-
+  if(storedIndex==12)
+      return;
   dht.begin();
   tempIndex=0;
   storedIndex=0;
@@ -58,7 +59,7 @@ void calculateTemps(){
   timeStamp[storedIndex] = Time;
   //if(storedIndex==11)
     //printTemps();
-  storedIndex=(storedIndex+1)%12;
+  storedIndex++;
 }
 
 //runs every minute

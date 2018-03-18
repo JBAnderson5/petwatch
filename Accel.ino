@@ -5,7 +5,7 @@
 #define LIS3DH_CS 16    //blue CS
 
 // global accelerometer variables
-Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);
+Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS);
 
 
 //TODO: fix accel data index going over
@@ -13,34 +13,38 @@ Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3D
 
 
 //stores the total movement of 5 minute intervals
-float aggMovement[12];
+int steps[12];
 unsigned long accelTime[12];
 int accelIndex;
 float movement;
+int stepCount;
+bool isStepping;
 
 void setupAccel(void){
-   if (! lis.begin(0x18)) {   // change this to 0x19 for alternative i2c address
+   if(! lis.begin(0x19)) {   // change this to 0x19 for alternative i2c address
     Serial.println("Couldnt start accelerometer");
 
     //while (1);
   }
-  Serial.println("accelerometer found!");
+  //Serial.println("accelerometer found!");
 
-   lis.setRange(LIS3DH_RANGE_4_G);   // 2, 4, 8 or 16 G!
+  lis.setRange(LIS3DH_RANGE_4_G);   // 2, 4, 8 or 16 G!
   movement=0;
   prevAccel=0;
+  accelIndex=0;
+  stepCount=0;
+  isStepping=false;
 }
 
 void totalAccel(){
-  aggMovement[accelIndex]=movement;
-  movement=0;
-  
+  if(accelIndex==12)
+    return;
+  steps[accelIndex]=stepCount;
   accelTime[accelIndex]=Time;
-  prevAccel=Time;
-  //Serial.println(aggMovement[accelIndex]);
-  //Serial.println(accelTime[accelIndex]);
-  //Serial.println();
   accelIndex++;
+  stepCount=0;
+  prevAccel=Time;
+  
 }
 
 
@@ -52,8 +56,24 @@ void measureAccel(){
   lis.getEvent(&event);
 
   //figure out physics
-  movement+= abs(event.acceleration.x) + abs(event.acceleration.y) + abs(event.acceleration.z) - 9.8;
-  if(Time-prevAccel>100UL)
+  movement= (event.acceleration.x*event.acceleration.x+event.acceleration.y*event.acceleration.y
+  +event.acceleration.z+event.acceleration.z)/(9.8*9.8);
+  movement=float(.6)+random(0,2);
+  //Serial.println(movement);
+  if(isStepping){
+    if(movement<1.5){
+      isStepping=false;
+      stepCount++;
+      //Serial.println("is this a step");
+    }
+  }
+  else{
+    if(movement>1.5){
+      isStepping=true;
+    }
+  }
+  
+  if(Time-prevAccel>1000*20UL)
     totalAccel();
 
   

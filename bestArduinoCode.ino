@@ -44,12 +44,12 @@ void loop() {
   Time=millis();
 
   //check temperature every minute
-  if(Time-prevTemp>1000*60UL)
+  if(Time-prevTemp>1000*10UL)
     measureTemp();
 
   measureAccel();
   //Serial.println();
-  if(Time-prevTrans>1000*60*5UL)
+  if(Time-prevTrans>1000*60UL)
     sendInfo();
  
   delay(200); 
